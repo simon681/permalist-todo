@@ -1,45 +1,84 @@
 <%- include('partials/header.ejs'); -%>
 
-  <div class="box" id="heading">
-    <h1>
-      <%= listTitle %>
-    </h1>
-  </div>
-  <div class="box">
-    <% for(let item of listItems){%>
-      <div class="item">
-        <form action="/delete" method="post">
-          <input type="checkbox" onchange="this.form.submit()" name="deleteItemId" value="<%= item.id %>">
+<div class="box" id="heading">
+  <h1><%= listTitle %></h1>
+</div>
+
+<!-- Dropdown-based List Switcher -->
+<div class="box" style="padding: 10px; text-align: center;">
+  <form action="/switch-list/redirect" method="get">
+    <select name="listName" onchange="this.form.submit()" style="padding: 10px; border-radius: 5px;">
+      <% allLists.forEach(function(list) { %>
+        <option value="<%= list %>" <%= list === listTitle ? 'selected' : '' %>><%= list %></option>
+      <% }); %>
+    </select>
+    <noscript>
+      <button type="submit" class="add" style="width:auto; padding: 0 15px;">Go</button>
+    </noscript>
+  </form>
+</div>
+
+<!-- To-do Item List -->
+<div class="box">
+  <ul class="todo-list" style="list-style: none; padding-left: 0;">
+    <% for (let item of listItems) { %>
+      <li class="item">
+        <form action="/delete" method="post" style="display: inline;">
+          <input type="hidden" name="currentList" value="<%= listTitle %>">
+          <label for="checkbox-<%= item.id %>" style="cursor: pointer;">
+            <input id="checkbox-<%= item.id %>" type="checkbox" onchange="this.form.submit()" name="deleteItemId" value="<%= item.id %>">
+            <p id="title<%= item.id %>" style="display: inline;"><%= item.title %></p>
+          </label>
         </form>
 
-        <p id="title<%=item.id%>">
-          <%= item.title %>
-        </p>
-
-        <form class="edit" action="/edit" method="post">
+        <form class="edit" action="/edit" method="post" style="display: inline;">
           <input type="hidden" name="updatedItemId" value="<%= item.id %>">
-          <input id="input<%=item.id%>" type="text" name="updatedItemTitle" value="<%= item.title %>" autocomplete="off"
-            autofocus="true" hidden="true" />
-          <button id="done<%=item.id%>" class="edit" type="submit" hidden><img class="icon"
-              src="/assets/icons/check-solid.svg" alt="tick image"></button>
+          <input type="hidden" name="currentList" value="<%= listTitle %>">
+          <input id="input<%= item.id %>" type="text" name="updatedItemTitle" value="<%= item.title %>"
+            autocomplete="off" autofocus="true" hidden
+            onkeypress="if(event.key==='Enter'){ this.form.submit(); }" />
+          <button id="done<%= item.id %>" class="edit" type="submit" hidden>
+            <img class="icon" src="/assets/icons/check-solid.svg" alt="tick image">
+          </button>
         </form>
-        <button id="edit<%=item.id%>" class="edit" onclick="handler('<%=item.id%>')"><img class="icon"
-            src="/assets/icons/pencil-solid.svg" alt="pencil image"></button>
-      </div>
-      <% } %>
 
-        <form class="item" action="/add" method="post">
-          <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" />
-          <button class="add" type="submit" name="list" value=<%=listTitle %> >+</button>
-        </form>
-  </div>
+        <button id="edit<%= item.id %>" class="edit" onclick="handler('<%= item.id %>')">
+          <img class="icon" src="/assets/icons/pencil-solid.svg" alt="pencil image">
+        </button>
+      </li>
+    <% } %>
+  </ul>
 
-  <script>
-    function handler(id) {
-      document.getElementById("title" + id).setAttribute("hidden", true)
-      document.getElementById("edit" + id).setAttribute("hidden", true)
-      document.getElementById("done" + id).removeAttribute("hidden")
-      document.getElementById("input" + id).removeAttribute("hidden")
+  <% if (listItems.length === 0) { %>
+    <p style="text-align:center; color:#888;">🎉 All tasks complete for this list!</p>
+  <% } %>
+
+  <!-- Add New Item -->
+  <form class="item" action="/add" method="post">
+    <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" />
+    <input type="hidden" name="listName" value="<%= listTitle %>">
+    <input type="date" name="dueDate" style="margin-left: 10px;" />
+    <button class="add" type="submit">+</button>
+  </form>
+</div>
+
+<!-- Completed Tasks Link -->
+<a href="/completed/<%= listTitle %>" style="font-size: 14px; display: block; margin: 10px 0;">✅ View Completed Tasks</a>
+
+<script>
+  function handler(id) {
+    if (!id) return;
+    const titleEl = document.getElementById("title" + id);
+    const editBtn = document.getElementById("edit" + id);
+    const doneBtn = document.getElementById("done" + id);
+    const inputEl = document.getElementById("input" + id);
+    if (titleEl && editBtn && doneBtn && inputEl) {
+      titleEl.setAttribute("hidden", true);
+      editBtn.setAttribute("hidden", true);
+      doneBtn.removeAttribute("hidden");
+      inputEl.removeAttribute("hidden");
     }
-  </script>
-  <%- include('partials/footer.ejs'); -%>
+  }
+</script>
+
+<%- include('partials/footer.ejs'); -%>

@@ -1,0 +1,12 @@
+<%- include('partials/header.ejs') %>
+
+<div class="box" style="text-align: center;">
+  <h2>Available Lists</h2>
+  <ul>
+    <% for (let list of lists) { %>
+      <li><a href="/<%= list.list_name %>"><%= list.list_name %></a></li>
+    <% } %>
+  </ul>
+</div>
+
+<%- include('partials/footer.ejs') %>

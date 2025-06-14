@@ -1,0 +1,15 @@
+<%- include('partials/header.ejs'); -%>
+
+<div class="box" style="text-align: center;">
+  <h2>Select a To-Do List</h2>
+  <form action="/switch-list/redirect" method="get">
+    <select name="listName" required>
+      <% for(let list of lists) { %>
+        <option value="<%= list %>" <%= list === currentList ? 'selected' : '' %>><%= list %></option>
+      <% } %>
+    </select>
+    <button type="submit" class="add" style="width:auto; padding: 0 15px;">Go</button>
+  </form>
+</div>
+
+<%- include('partials/footer.ejs'); -%>

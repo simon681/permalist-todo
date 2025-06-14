@@ -1,0 +1,39 @@
+<%- include('partials/header.ejs'); -%>
+
+<div class="box" id="heading">
+  <h1><%= listTitle %></h1>
+</div>
+
+<div class="completed-wrapper box">
+  <% if (listItems.length === 0) { %>
+    <p style="text-align:center; color:#888;">No completed tasks yet ✅</p>
+  <% } %>
+
+  <ul class="todo-list" style="list-style: none; padding-left: 0;">
+    <% listItems.forEach(function(item) { %>
+      <li class="completed-item">
+        <span><%= item.title %></span>
+
+        <div class="completed-actions">
+          <% if (item.due_date) { %>
+            <span class="completed-meta">Due: <%= item.due_date.toISOString().slice(0, 10) %></span>
+          <% } %>
+
+          <form action="/undo" method="post">
+            <input type="hidden" name="itemId" value="<%= item.id %>">
+            <button class="undo" type="submit">Undo</button>
+          </form>
+
+          <form action="/permanent-delete" method="post" onsubmit="return confirm('Are you sure you want to permanently delete this task?')">
+            <input type="hidden" name="itemId" value="<%= item.id %>">
+            <button class="delete" type="submit">Delete</button>
+          </form>
+        </div>
+      </li>
+    <% }) %>
+  </ul>
+</div>
+
+<a href="/<%= listTitle.replace(' (Completed)', '') %>" style="font-size: 14px; display: block; margin-top: 20px;">🔙 Back to Active List</a>
+
+<%- include('partials/footer.ejs'); -%>
