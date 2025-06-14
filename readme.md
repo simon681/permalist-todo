@@ -1,112 +1,82 @@
-# 📝 Permalist To-Do List App
+# 📝 Multi-List To-Do App with PostgreSQL + Node.js + EJS
 
-**Permalist** is a minimalist to-do list web application built with **Node.js**, **Express**, **EJS**, and **PostgreSQL**. It allows users to manage tasks — with the ability to add, edit, and delete items — while storing all data persistently in a PostgreSQL database.
-
----
+A full-featured, multi-list to-do web application built with Express.js, PostgreSQL, and EJS templating. Designed for productivity and built with extendability in mind.
 
 ## 🚀 Features
 
-- ✅ Add new tasks
-- ✏️ Edit existing items inline
-- 🗑️ Delete tasks via checkbox
-- 📦 Persistent storage using PostgreSQL
-- 🔐 Secure credentials with `.env` and `dotenv`
-- 🎨 Clean and dynamic frontend using EJS
+- 🗂 Multiple named lists (e.g., Work, Family, Personal)
+- ➕ Add tasks with optional due dates
+- ✅ Mark tasks as completed
+- 🔁 Undo completed tasks
+- 🗑 Permanently delete tasks
+- 🔍 View upcoming or overdue tasks
+- 📅 Pagination support
+- 📦 PostgreSQL backend with schema-based organization
+- 🎨 Clean, responsive UI with light/dark theme support *(optional)*
+
+## 📸 Screenshots
+
+![Main page](image-1.png)
+![Completed Tasks page](image-2.png)
+
+## 🛠 Stack
+
+- **Backend**: Node.js, Express.js
+- **Frontend**: HTML, CSS, EJS Templates
+- **Database**: PostgreSQL
+- **Tools**: dotenv, body-parser
+
+## 📂 Folder Structure
+
+```
+/public          → Static assets (CSS, icons)
+/views           → EJS templates
+/partials        → Shared layout files (header/footer)
+index.js         → Main Express server
+.env             → Environment variables
+README.md        → Project documentation
+```
+
+## ⚙️ Setup Instructions
+
+1. **Clone the repo**:
+   ```bash
+   git clone https://github.com/simon681/todo-app.git
+   cd todo-app
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Set up PostgreSQL**:
+   - Create database and `items` table using `schema.sql` (optional)
+   - Add your DB credentials to `.env`
+
+4. **Run the server**:
+   ```bash
+   nodemon index.js
+   ```
+
+5. **Visit**:
+   ```
+   http://localhost:3000
+   ```
+
+## 🧠 To-Do (Future Enhancements)
+
+- [ ] User accounts & login
+- [ ] Drag & drop sorting
+- [ ] Recurring tasks
+- [ ] REST API support
+- [ ] PWA & mobile responsiveness
+
+## 📄 License
+
+MIT
 
 ---
 
-## ⚙️ Tech Stack
-
-| Layer        | Technology            |
-|--------------|------------------------|
-| Server       | Node.js, Express       |
-| View Engine  | EJS                    |
-| Database     | PostgreSQL             |
-| Dev Tools    | dotenv, body-parser    |
-
----
-
-## 📂 Project Structure
-
-```
-permalist-todo/
-│
-├── views/                 # EJS templates
-│   └── index.ejs
-│
-├── public/                # Static files (CSS, icons)
-│
-├── .env                   # Environment variables (excluded from Git)
-├── .gitignore             # Ignored files/folders
-├── index.js               # Express server logic
-├── package.json           # NPM dependencies
-└── README.md              # Project documentation
-```
-
----
-
-## 🛠️ Getting Started
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/simon681/permalist-todo.git
-cd permalist-todo
-```
-
-### 2. Install dependencies
-
-```bash
-npm install
-```
-
-### 3. Create `.env` file
-
-```bash
-touch .env
-```
-
-Add the following with your PostgreSQL credentials:
-
-```
-DB_USER=your_db_user
-DB_HOST=localhost
-DB_NAME=permalist
-DB_PASSWORD=your_db_password
-DB_PORT=5432
-```
-
-### 4. Create the `items` table in PostgreSQL
-
-```sql
-CREATE TABLE items (
-  id SERIAL PRIMARY KEY,
-  title TEXT NOT NULL
-);
-```
-
-### 5. Start the app
-
-```bash
-node index.js
-```
-
-Then visit: [http://localhost:3000](http://localhost:3000)
-
----
-
-## 🧪 Sample Screenshot
-
-![Screenshot of project](image.png)
-
----
-
-## 📌 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-## 🙌 Acknowledgments
-
-Built as part of a personal web development project by [Murshidul Hasan](https://github.com/simon681).
+### ✨ Credits
+Developed by [Murshidul Hasan](https://murshidul.com)
