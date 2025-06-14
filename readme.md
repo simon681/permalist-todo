@@ -1,86 +1,112 @@
 # 📝 Permalist To-Do List App
 
-Permalist is a simple and efficient to-do list web application built using **Node.js**, **Express**, **EJS**, and **PostgreSQL**. It allows users to add, edit, and delete tasks — with all data stored in a PostgreSQL database for persistence.
+**Permalist** is a minimalist to-do list web application built with **Node.js**, **Express**, **EJS**, and **PostgreSQL**. It allows users to manage tasks — with the ability to add, edit, and delete items — while storing all data persistently in a PostgreSQL database.
 
 ---
 
 ## 🚀 Features
 
-- Add new to-do items
-- Edit existing tasks inline
-- Delete tasks with a checkbox
-- Persistent storage using PostgreSQL
-- Clean UI powered by EJS templates
-- Secure environment variables with `dotenv`
+- ✅ Add new tasks
+- ✏️ Edit existing items inline
+- 🗑️ Delete tasks via checkbox
+- 📦 Persistent storage using PostgreSQL
+- 🔐 Secure credentials with `.env` and `dotenv`
+- 🎨 Clean and dynamic frontend using EJS
 
 ---
 
-## 🛠️ Tech Stack
+## ⚙️ Tech Stack
 
-- **Backend**: Node.js, Express.js
-- **Frontend**: EJS, HTML, CSS
-- **Database**: PostgreSQL
-- **Tools**: Dotenv, body-parser
+| Layer        | Technology            |
+|--------------|------------------------|
+| Server       | Node.js, Express       |
+| View Engine  | EJS                    |
+| Database     | PostgreSQL             |
+| Dev Tools    | dotenv, body-parser    |
 
 ---
 
 ## 📂 Project Structure
+
+```
 permalist-todo/
 │
-├── views/ # EJS templates
-│ └── index.ejs
+├── views/                 # EJS templates
+│   └── index.ejs
 │
-├── public/ # Static assets (CSS, images, icons)
+├── public/                # Static files (CSS, icons)
 │
-├── .env # Environment variables (not tracked)
-├── .gitignore
-├── index.js # Main application file
-├── package.json
-└── README.md
+├── .env                   # Environment variables (excluded from Git)
+├── .gitignore             # Ignored files/folders
+├── index.js               # Express server logic
+├── package.json           # NPM dependencies
+└── README.md              # Project documentation
+```
 
 ---
 
-## ⚙️ Setup & Run Locally
+## 🛠️ Getting Started
 
-1. **Clone the repo**
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/simon681/permalist-todo.git
 cd permalist-todo
+```
 
-2. Install dependencies
+### 2. Install dependencies
 
-bash
-Copy
-Edit
+```bash
 npm install
+```
 
-Set up your .env file
+### 3. Create `.env` file
 
-3. Create a .env file in the root folder and add your DB credentials:
+```bash
+touch .env
+```
 
-DB_USER=your_username
+Add the following with your PostgreSQL credentials:
+
+```
+DB_USER=your_db_user
 DB_HOST=localhost
 DB_NAME=permalist
-DB_PASSWORD=your_password
+DB_PASSWORD=your_db_password
 DB_PORT=5432
+```
 
-4. Start the app
+### 4. Create the `items` table in PostgreSQL
 
-
-node index.js
-
-Visit http://localhost:3000 in your browser.
-
-🧪 Example SQL to create the table
-
+```sql
 CREATE TABLE items (
   id SERIAL PRIMARY KEY,
   title TEXT NOT NULL
 );
+```
 
-📌 License
-This project is licensed under the MIT License.
+### 5. Start the app
 
-🙌 Acknowledgments
-Built as part of a personal learning project in full-stack development.
+```bash
+node index.js
+```
+
+Then visit: [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🧪 Sample Screenshot
+
+![Screenshot of project](image.png)
+
+---
+
+## 📌 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 🙌 Acknowledgments
+
+Built as part of a personal web development project by [Murshidul Hasan](https://github.com/simon681).
