@@ -52,7 +52,7 @@ README.md        → Project documentation
 
 3. **Set up PostgreSQL**:
    - Create database and `items` table using `schema.sql` (optional)
-   - Add your DB credentials to `.env`
+   - Copy `.env.example` to `.env` and fill in your database credentials
 
 4. **Run the server**:
    ```bash
